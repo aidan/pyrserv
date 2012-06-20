@@ -115,6 +115,8 @@ class RSerializer(object):
     def _serializeExpr(self, o, rTypeHint=None):
         if not rTypeHint:
             if isinstance(o, numpy.ndarray):
+                if o.dtype.type == numpy.int64:
+                    o = o.astype(numpy.int32)
                 rTypeHint = rtypes.numpyMap[o.dtype.type]   #o.dtype.type
             else:
                 rTypeHint = type(o)
